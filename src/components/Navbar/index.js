@@ -4,7 +4,7 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 const Navbar = () => (
     <Toolbar>
       <ToolbarGroup>
-        <ToolbarTitle text="Bookmark" />
+        <ToolbarTitle text="Bookmarker" />
       </ToolbarGroup>
     </Toolbar>
 );

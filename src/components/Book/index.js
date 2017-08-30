@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Sort from 'material-ui/svg-icons/content/sort';
 import { Card, CardTitle, CardText, CardMedia, CardActions } from 'material-ui/Card';
 import PropTypes from 'prop-types';
 
@@ -31,13 +32,15 @@ class Book extends Component {
     return (
       <Card className="book">
         <CardMedia className="book-top">
-          <div className="book-cover" style={{ width: 140, height: 193, backgroundImage: `url("${image}")` }}></div>
+          <img className="book-cover" style={{ width: 160, height: 193 }} src={image} />
         </CardMedia>
         <CardTitle>{title}</CardTitle>
         <CardText>{author}</CardText>
         <CardActions>
           <div>
-            <RaisedButton onClick={this.handleTouchTap} label="Status" />
+            <FloatingActionButton onClick={this.handleTouchTap} mini>
+              <Sort />
+            </FloatingActionButton>
             <Popover
               open={open}
               anchorEl={anchorEl}
