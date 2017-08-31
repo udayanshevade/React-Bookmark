@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import Sort from 'material-ui-icons/Sort';
-import Card, { CardContent, CardMedia, CardActions } from 'material-ui/Card';
+import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
+import { RightAlignedActions } from './styles';
 
 class Book extends Component {
   state = {
@@ -39,11 +40,11 @@ class Book extends Component {
           <Typography type="headline" component="h2">{title}</Typography>
           <Typography component="p">{author}</Typography>
         </CardContent>
-        <CardActions>
+        <RightAlignedActions>
           <div>
-            <Button fab onClick={this.handleTouchTap} dense>
+            <IconButton onClick={this.handleTouchTap}>
               <Sort />
-            </Button>
+            </IconButton>
             <Menu
               open={open}
               anchorEl={anchorEl}
@@ -55,7 +56,7 @@ class Book extends Component {
               <MenuItem value="read">Completed</MenuItem>
             </Menu>
           </div>
-        </CardActions>
+        </RightAlignedActions>
       </Card>
     );
   }
