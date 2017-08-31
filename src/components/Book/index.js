@@ -28,11 +28,11 @@ class Book extends Component {
 
   render() {
     const { open, anchorEl } = this.state;
-    const { image, title, author } = this.props;
+    const { imageLinks, title, author } = this.props;
     return (
       <Card className="book">
         <CardMedia
-          image={image}
+          image={imageLinks.thumbnail || imageLinks.smallThumbnail}
           title={title}
           className="book-top"
         />

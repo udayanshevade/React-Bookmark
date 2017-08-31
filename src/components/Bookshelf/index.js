@@ -1,57 +1,29 @@
 import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import SwipeableViews from 'react-swipeable-views';
 import ContentAdd from 'material-ui-icons/Add';
 import PropTypes from 'prop-types';
-import Books from '../Books';
+import Bookshelf from './Bookshelf';
 import { SearchButton } from './styles';
 
-class Bookshelf extends Component {
-  state = {
-    slideIndex: 0,
-  };
-  handleSlideChange = (e, val) => {
-    this.setState({
-      slideIndex: val,
-    });
+class BookshelfView extends Component {
+  adjustBooksData = (rawData) => {
+    const adjustedData = {};
+    rawData.forEach((book) => {
+      if (adjustedData.hasOwnProperty(book.shelf)) {
+        adjustedData[book.shelf].push(book);
+      } else {
+        adjustedData[book.shelf] = [book];
+      }
+    })
+    return adjustedData;
   }
+
   render() {
+    // placeholder for loading indicator
+    if (!this.props.books.length) return <span />;
+    const books = this.adjustBooksData(this.props.books);
     return (
       <div className="list-books">
-        <div className="list-books-content">
-          <AppBar position="static">
-            <Tabs
-              onChange={this.handleSlideChange}
-              value={this.state.slideIndex}
-              centered
-            >
-              {
-                this.props.books.map((shelf, i) => (
-                  <Tab
-                    label={shelf.label}
-                    value={i}
-                    className="bookshelf-books"
-                    key={shelf.label.split(' ').join('-')}
-                  />
-                ))
-              }
-            </Tabs>
-          </AppBar>
-          <SwipeableViews
-            index={this.state.slideIndex}
-            onChangeIndex={this.handleSlideChange}
-          >
-            {
-              this.props.books.map(shelf => (
-                <Books
-                  books={shelf.books}
-                  key={shelf.label.split(' ').join('-')}
-                />
-              ))
-            }
-          </SwipeableViews>
-        </div>
+        <Bookshelf books={books} />
         <SearchButton fab href="/search">
           <ContentAdd />
         </SearchButton>
@@ -60,8 +32,8 @@ class Bookshelf extends Component {
   }
 }
 
-Bookshelf.propTypes = {
+BookshelfView.propTypes = {
   books: PropTypes.array,
 };
 
-export default Bookshelf;
+export default BookshelfView;

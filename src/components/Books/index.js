@@ -4,7 +4,7 @@ import Grid from 'material-ui/Grid';
 import Book from '../Book';
 import { PaddedGrid } from './styles';
 
-const Books = ({ books }) => (
+const Books = ({ books, shelves }) => (
   <PaddedGrid container>
     {
       books.map(book => (
@@ -16,7 +16,7 @@ const Books = ({ books }) => (
           lg={2}
           key={book.title.toUpperCase().split(' ').join('-')}
         >
-          <Book {...book} />
+          <Book {...book} shelf={shelves[book.shelf]} shelves={shelves} />
         </Grid>
       ))
     }
