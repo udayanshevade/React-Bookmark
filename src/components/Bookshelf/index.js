@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import Grid from 'material-ui/Grid';
 import ContentAdd from 'material-ui-icons/Add';
 import PropTypes from 'prop-types';
-import Book from '../Book';
-import { PaddedGrid, SearchButton } from './styles';
+import Books from '../Books';
+import { SearchButton } from './styles';
 
 class Bookshelf extends Component {
   state = {
@@ -45,25 +44,10 @@ class Bookshelf extends Component {
           >
             {
               this.props.books.map(shelf => (
-                <PaddedGrid
-                  container
+                <Books
+                  books={shelf.books}
                   key={shelf.label.split(' ').join('-')}
-                >
-                  {
-                    shelf.books.map(book => (
-                      <Grid
-                        item
-                        xs={12}
-                        sm={4}
-                        md={3}
-                        lg={2}
-                        key={book.title.toUpperCase().split(' ').join('-')}
-                      >
-                        <Book {...book} />
-                      </Grid>
-                    ))
-                  }
-                </PaddedGrid>
+                />
               ))
             }
           </SwipeableViews>
