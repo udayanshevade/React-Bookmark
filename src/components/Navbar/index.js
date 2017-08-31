@@ -1,12 +1,14 @@
 import React from 'react';
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 
 const Navbar = () => (
-    <Toolbar>
-      <ToolbarGroup>
-        <ToolbarTitle text="Bookmarker" />
-      </ToolbarGroup>
-    </Toolbar>
+    <AppBar position="static">
+        <Toolbar>
+            <Typography type="title">Bookmarker</Typography>
+        </Toolbar>
+    </AppBar>
 );
 
 export default Navbar;

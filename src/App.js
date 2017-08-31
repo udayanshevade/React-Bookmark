@@ -1,18 +1,12 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import { GridList, GridTile } from 'material-ui/GridList';
-import SwipeableViews from 'react-swipeable-views';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import Navbar from './components/Navbar';
-import Book from './components/Book';
+import Bookshelf from './components/Bookshelf';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 
 class BooksApp extends React.Component {
   state = {
-    slideIndex: 0,
     books: [
       {
         "label": "now reading",
@@ -64,64 +58,12 @@ class BooksApp extends React.Component {
     ],
   }
 
-  handleSlideChange = (val) => {
-    this.setState({
-      slideIndex: val,
-    });
-  }
-
   render() {
     return (
       <div className="app">
+        <Route path="/" component={Navbar} />
         <Route exact path="/" render={() => (
-          <div className="list-books">
-            <Navbar />
-            <div className="list-books-content">
-              <Tabs
-                onChange={this.handleSlideChange}
-                value={this.state.slideIndex}
-              >
-                {
-                  this.state.books.map((shelf, i) => (
-                    <Tab
-                      label={shelf.label}
-                      value={i}
-                      className="bookshelf-books"
-                      style={styles.tab}
-                      key={shelf.label.split(' ').join('-')}
-                    />
-                  ))
-                }
-              </Tabs>
-              <SwipeableViews
-                index={this.state.slideIndex}
-                onChangeIndex={this.handleSlideChange}
-              >
-                {
-                  this.state.books.map(shelf => (
-                    <GridList
-                      cellHeight="auto"
-                      key={shelf.label.split(' ').join('-')}
-                    >
-                      {
-                        shelf.books.map(book => (
-                          <GridTile
-                            style={styles.tile}
-                            key={book.title.toUpperCase().split(' ').join('-')}
-                          >
-                            <Book {...book} />
-                          </GridTile>
-                        ))
-                      }
-                    </GridList>
-                  ))
-                }
-              </SwipeableViews>
-            </div>
-            <FloatingActionButton style={styles.searchLink} href="/search">
-              <ContentAdd />
-            </FloatingActionButton>
-          </div>
+          <Bookshelf books={this.state.books} />
         )} />
         <Route path="/search" render={() => (
           <div className="search-books">
@@ -137,7 +79,6 @@ class BooksApp extends React.Component {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
                 <input type="text" placeholder="Search by title or author"/>
-                
               </div>
             </div>
             <div className="search-books-results">
@@ -150,19 +91,4 @@ class BooksApp extends React.Component {
   }
 }
 
-const styles = {
-  searchLink: {
-    position: 'fixed',
-    right: 10,
-    bottom: 10,
-    zIndex: 10,
-  },
-  tile: {
-    margin: '2px 0',
-  },
-  tab: {
-    fontSize: 12,
-  },
-};
-
-export default BooksApp
+export default BooksApp;

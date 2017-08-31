@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Sort from 'material-ui/svg-icons/content/sort';
-import { Card, CardTitle, CardText, CardMedia, CardActions } from 'material-ui/Card';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import Button from 'material-ui/Button';
+import Sort from 'material-ui-icons/Sort';
+import Card, { CardContent, CardMedia, CardActions } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 
 class Book extends Component {
@@ -31,29 +30,30 @@ class Book extends Component {
     const { image, title, author } = this.props;
     return (
       <Card className="book">
-        <CardMedia className="book-top">
-          <img className="book-cover" style={{ width: 160, height: 193 }} src={image} />
-        </CardMedia>
-        <CardTitle>{title}</CardTitle>
-        <CardText>{author}</CardText>
+        <CardMedia
+          image={image}
+          title={title}
+          className="book-top"
+        />
+        <CardContent>
+          <Typography type="headline" component="h2">{title}</Typography>
+          <Typography component="p">{author}</Typography>
+        </CardContent>
         <CardActions>
           <div>
-            <FloatingActionButton onClick={this.handleTouchTap} mini>
+            <Button fab onClick={this.handleTouchTap} dense>
               <Sort />
-            </FloatingActionButton>
-            <Popover
+            </Button>
+            <Menu
               open={open}
               anchorEl={anchorEl}
               onRequestClose={this.handleRequestClose}
             >
-              <Menu>
-                <MenuItem value="none" disabled>Move to...</MenuItem>
-                <MenuItem value="currentlyReading">Currently Reading</MenuItem>
-                <MenuItem value="wantToRead">Want to Read</MenuItem>
-                <MenuItem value="read">Read</MenuItem>
-                <MenuItem value="none">None</MenuItem>
-              </Menu>
-            </Popover>
+              <MenuItem value="none" disabled>Move to...</MenuItem>
+              <MenuItem value="currentlyReading">Now Reading</MenuItem>
+              <MenuItem value="wantToRead">Read Later</MenuItem>
+              <MenuItem value="read">Completed</MenuItem>
+            </Menu>
           </div>
         </CardActions>
       </Card>
