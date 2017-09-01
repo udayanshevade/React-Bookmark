@@ -28,7 +28,7 @@ class Book extends Component {
 
   render() {
     const { open, anchorEl } = this.state;
-    const { imageLinks, title, author } = this.props;
+    const { imageLinks, title, author, shelf, shelves } = this.props;
     return (
       <Card className="book">
         <CardMedia
@@ -50,10 +50,19 @@ class Book extends Component {
               anchorEl={anchorEl}
               onRequestClose={this.handleRequestClose}
             >
-              <MenuItem value="none" disabled>Move to...</MenuItem>
-              <MenuItem value="currentlyReading">Now Reading</MenuItem>
-              <MenuItem value="wantToRead">Read Later</MenuItem>
-              <MenuItem value="read">Completed</MenuItem>
+              <MenuItem value={null} disabled>Move to...</MenuItem>
+              {
+                Object.keys(shelves).map(s => (
+                  <MenuItem
+                    value={s}
+                    onClick={this.handleRequestClose}
+                    selected={shelf === s}
+                    key={`${title}-menu-${s}`}
+                  >
+                    {shelves[s]}
+                  </MenuItem>
+                ))
+              }
             </Menu>
           </div>
         </RightAlignedActions>
@@ -65,7 +74,9 @@ class Book extends Component {
 Book.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
-  image: PropTypes.string,
+  imageLinks: PropTypes.shape({
+    thumbnail: PropTypes.string,
+  }),
 };
 
 export default Book;

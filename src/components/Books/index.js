@@ -16,7 +16,7 @@ const Books = ({ books, shelves }) => (
           lg={2}
           key={book.title.toUpperCase().split(' ').join('-')}
         >
-          <Book {...book} shelf={shelves[book.shelf]} shelves={shelves} />
+          <Book {...book} shelves={shelves} />
         </Grid>
       ))
     }
