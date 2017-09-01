@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import Divider from 'material-ui/Divider';
 import SwipeableViews from 'react-swipeable-views';
+import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import Books from '../Books';
+import { EmptyShelf, EmptyShelfText } from './styles';
 
 class Bookshelf extends Component {
   state = {
     slideIndex: 0,
   }
 
-  shelves = {
-    currentlyReading: 'Now Reading',
-    wantToRead: 'Read Later',
-    read: 'Completed',
+  emptyShelfText = {
+    currentlyReading: 'You are not reading any books right now.',
+    wantToRead: 'You have not saved any books to read later.',
+    read: 'You have not read any books.',
   }
 
   handleSlideChange = (val) => {
@@ -23,7 +27,7 @@ class Bookshelf extends Component {
 
   render() {
     const { slideIndex } = this.state;
-    const { organizedBooks, onBookReshelved } = this.props;
+    const { organizedBooks, onBookReshelved, shelves } = this.props;
     return (
       <div className="list-books-content">
         <Tabs
@@ -31,9 +35,9 @@ class Bookshelf extends Component {
           value={slideIndex}
         >
           {
-            Object.keys(this.shelves).map((s, i) => (
+            Object.keys(shelves).map((s, i) => (
               <Tab
-                label={this.shelves[s]}
+                label={shelves[s]}
                 value={i}
                 className="bookshelf-books"
                 key={`${s}Tab`}
@@ -47,12 +51,21 @@ class Bookshelf extends Component {
         >
           {
             Object.keys(organizedBooks).map(shelf => (
-              <Books
-                books={organizedBooks[shelf]}
-                shelves={this.shelves}
-                onBookReshelved={onBookReshelved}
-                key={`${shelf}Swipeable`}
-              />
+              organizedBooks[shelf].length
+                ? <Books
+                  books={organizedBooks[shelf]}
+                  shelves={shelves}
+                  onBookReshelved={onBookReshelved}
+                  key={`${shelf}Swipeable`}
+                />
+                : (
+                  <EmptyShelf key={`${shelf}Swipeable`}>
+                    <BookmarkBorder style={styles.emptyIcon}/>
+                    <EmptyShelfText spaced>{this.emptyShelfText[shelf]}</EmptyShelfText>
+                    <EmptyShelfText spaced>Organize your bookshelf.</EmptyShelfText>
+                    <EmptyShelfText><Link to="/search">Or browse new books</Link>.</EmptyShelfText>
+                  </EmptyShelf>
+                )
             ))
           }
         </SwipeableViews>
@@ -70,6 +83,17 @@ Bookshelf.propTypes = {
     ),
   }),
   onBookReshelved: PropTypes.func,
+};
+
+const styles = {
+  emptyIcon: {
+    color: '#fff',
+    height: 48,
+    width: 48,
+    background: '#ccc',
+    borderRadius: '50%',
+    padding: '1rem',
+  },
 };
 
 export default Bookshelf;

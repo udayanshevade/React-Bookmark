@@ -40,13 +40,23 @@ class Book extends Component {
   render() {
     const { book, shelves } = this.props;
     const { shelf } = this.state;
-    const { imageLinks, title, author } = book;
+    const { imageLinks, title, authors } = book;
     return (
       <Card className="book">
         <CardMedia>
           <img src={imageLinks.thumbnail || imageLinks.smallThumbnail} alt={`Book cover for ${title}`} />
         </CardMedia>
-        <CardTitle title={title} subtitle={author} />
+        <CardTitle
+          title={title}
+          titleStyle={styles.title}
+          subtitle={
+            <ul className="authors-list">
+              {
+                authors.map((author, i) => <li key={`${title}-author-${i}`}>{author}</li>)
+              }
+            </ul>
+          }
+        />
         <RightAlignedActions>
           <div>
             <IconMenu
@@ -85,6 +95,12 @@ Book.propTypes = {
     nowReading: PropTypes.string,
   }),
   onBookReshelved: PropTypes.func,
+};
+
+const styles = {
+  title: {
+    fontSize: '2rem',
+  },
 };
 
 export default Book;
