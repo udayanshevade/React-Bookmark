@@ -1,18 +1,29 @@
 import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Book from '../Book';
 
-const Books = ({ books, shelves, onBookReshelved }) => (
-  <div className="grid">
-    {
-      books.map(book => (
-        <div key={book.title.toUpperCase().split(' ').join('-')}>
-          <Book book={book} shelves={shelves} onBookReshelved={onBookReshelved} />
-        </div>
-      ))
-    }
-  </div>
-);
+const Books = ({ books, shelves, onBookReshelved }) => {
+  const items = books.map((book, i) => (
+    <CSSTransition
+      key={i}
+      classNames="popIn"
+      timeout={{ enter: 150, exit: 150 }}
+    >
+      <Book
+        book={book}
+        shelves={shelves}
+        onBookReshelved={onBookReshelved}
+        key={book.title.toUpperCase().split(' ').join('-')}
+      />
+    </CSSTransition>
+  ));
+  return (
+    <TransitionGroup appear className="grid">
+      {items}
+    </TransitionGroup>
+  );
+};
 
 Books.propTypes = {
   books: PropTypes.array,

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import Divider from 'material-ui/Divider';
 import SwipeableViews from 'react-swipeable-views';
 import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import Books from '../Books';
