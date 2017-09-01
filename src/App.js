@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Bookshelf from './components/Bookshelf';
 import * as BooksAPI from './BooksAPI';
+import findIndex from 'core-js/library/fn/array/find-index';
 import './App.css';
 
 class BooksApp extends React.Component {
@@ -17,7 +18,7 @@ class BooksApp extends React.Component {
 
   updateBookShelf = (newBook) => {
     const { allBooks } = this.state;
-    const indexOfUpdated = allBooks.findIndex(book => book.id === newBook.id);
+    const indexOfUpdated = findIndex(allBooks, book => book.id === newBook.id);
     const updatedBooks = [...allBooks];
     updatedBooks.splice(indexOfUpdated, 1, newBook);
     this.setState({

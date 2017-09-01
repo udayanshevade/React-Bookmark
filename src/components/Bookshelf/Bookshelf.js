@@ -61,4 +61,15 @@ class Bookshelf extends Component {
   }
 }
 
+Bookshelf.propTypes = {
+  organizedBooks: PropTypes.shape({
+    shelf: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+      })
+    ),
+  }),
+  onBookReshelved: PropTypes.func,
+};
+
 export default Bookshelf;
