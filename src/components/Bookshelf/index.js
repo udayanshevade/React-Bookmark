@@ -19,11 +19,14 @@ class BookshelfView extends Component {
 
   render() {
     // placeholder for loading indicator
-    if (!this.props.books.length) return <span />;
-    const books = this.adjustBooksData(this.props.books);
+    if (!this.props.allBooks.length) return <span />;
+    const organizedBooks = this.adjustBooksData(this.props.allBooks);
     return (
       <div className="list-books">
-        <Bookshelf books={books} />
+        <Bookshelf
+          organizedBooks={organizedBooks}
+            onBookReshelved={this.props.onBookReshelved}
+        />
         <SearchButton href="/search">
           <ContentAdd />
         </SearchButton>
@@ -33,7 +36,8 @@ class BookshelfView extends Component {
 }
 
 BookshelfView.propTypes = {
-  books: PropTypes.array,
+  allBooks: PropTypes.array,
+  onBookReshelved: PropTypes.func,
 };
 
 export default BookshelfView;

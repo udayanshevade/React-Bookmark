@@ -16,7 +16,6 @@ class Bookshelf extends Component {
   }
 
   handleSlideChange = (val) => {
-    console.log(val);
     this.setState({
       slideIndex: val,
     });
@@ -24,7 +23,7 @@ class Bookshelf extends Component {
 
   render() {
     const { slideIndex } = this.state;
-    const { books } = this.props;
+    const { organizedBooks, onBookReshelved } = this.props;
     return (
       <div className="list-books-content">
         <Tabs
@@ -47,10 +46,11 @@ class Bookshelf extends Component {
           onChangeIndex={this.handleSlideChange}
         >
           {
-            Object.keys(books).map(shelf => (
+            Object.keys(organizedBooks).map(shelf => (
               <Books
-                books={books[shelf]}
+                books={organizedBooks[shelf]}
                 shelves={this.shelves}
+                onBookReshelved={onBookReshelved}
                 key={`${shelf}Swipeable`}
               />
             ))
