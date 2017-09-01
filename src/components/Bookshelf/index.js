@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ContentAdd from 'material-ui-icons/Add';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import PropTypes from 'prop-types';
 import Bookshelf from './Bookshelf';
 import { SearchButton } from './styles';
@@ -24,7 +24,7 @@ class BookshelfView extends Component {
     return (
       <div className="list-books">
         <Bookshelf books={books} />
-        <SearchButton fab href="/search">
+        <SearchButton href="/search">
           <ContentAdd />
         </SearchButton>
       </div>

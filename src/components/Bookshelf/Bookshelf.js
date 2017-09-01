@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import Books from '../Books';
 
@@ -16,7 +15,8 @@ class Bookshelf extends Component {
     read: 'Completed',
   }
 
-  handleSlideChange = (e, val) => {
+  handleSlideChange = (val) => {
+    console.log(val);
     this.setState({
       slideIndex: val,
     });
@@ -27,24 +27,21 @@ class Bookshelf extends Component {
     const { books } = this.props;
     return (
       <div className="list-books-content">
-        <AppBar position="static">
-          <Tabs
-            onChange={this.handleSlideChange}
-            value={slideIndex}
-            centered
-          >
-            {
-              Object.keys(this.shelves).map((s, i) => (
-                <Tab
-                  label={this.shelves[s]}
-                  value={i}
-                  className="bookshelf-books"
-                  key={`${s}Tab`}
-                />
-              ))
-            }
-          </Tabs>
-        </AppBar>
+        <Tabs
+          onChange={this.handleSlideChange}
+          value={slideIndex}
+        >
+          {
+            Object.keys(this.shelves).map((s, i) => (
+              <Tab
+                label={this.shelves[s]}
+                value={i}
+                className="bookshelf-books"
+                key={`${s}Tab`}
+              />
+            ))
+          }
+        </Tabs>
         <SwipeableViews
           index={slideIndex}
           onChangeIndex={this.handleSlideChange}
@@ -54,7 +51,7 @@ class Bookshelf extends Component {
               <Books
                 books={books[shelf]}
                 shelves={this.shelves}
-                key={shelf.split(' ').join('-')}
+                key={`${shelf}Swipeable`}
               />
             ))
           }

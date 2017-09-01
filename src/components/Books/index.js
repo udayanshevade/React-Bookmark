@@ -1,26 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from 'material-ui/Grid';
 import Book from '../Book';
-import { PaddedGrid } from './styles';
 
 const Books = ({ books, shelves }) => (
-  <PaddedGrid container>
+  <div className="grid">
     {
       books.map(book => (
-        <Grid
-          item
-          xs={12}
-          sm={4}
-          md={3}
-          lg={2}
-          key={book.title.toUpperCase().split(' ').join('-')}
-        >
+        <div key={book.title.toUpperCase().split(' ').join('-')}>
           <Book {...book} shelves={shelves} />
-        </Grid>
+        </div>
       ))
     }
-  </PaddedGrid>
+  </div>
 );
 
 Books.propTypes = {

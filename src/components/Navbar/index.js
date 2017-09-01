@@ -1,16 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import BookmarkBorder from 'material-ui-icons/BookmarkBorder';
+import IconButton from 'material-ui/IconButton';
+import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 
 const Navbar = () => (
-    <AppBar position="static">
-        <Toolbar>
-            <BookmarkBorder style={{ marginRight: 10 }} /><Typography color="inherit" type="title">Bookmark</Typography>
-        </Toolbar>
-    </AppBar>
+    <AppBar iconElementLeft={<IconButton><BookmarkBorder /></IconButton>} title="Bookmarks" />
 );
 
 export default Navbar;

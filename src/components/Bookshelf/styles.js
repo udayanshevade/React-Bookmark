@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Button from 'material-ui/Button';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
-export const SearchButton = styled(Button)`
+export const SearchButton = styled(FloatingActionButton)`
     position: fixed !important;
     right: 1em;
     bottom: 1em;

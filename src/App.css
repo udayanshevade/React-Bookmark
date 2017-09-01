@@ -153,6 +153,10 @@ body, .app {
 
 /* book cover */
 
+.book {
+  margin: 1em;
+}
+
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background: #eee;
@@ -161,4 +165,17 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+.grid {
+  margin: 1em 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+@media screen and (min-width: 600px) {
+  .grid {
+    justify-content: flex-start;
+  } 
 }
