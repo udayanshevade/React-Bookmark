@@ -9,7 +9,7 @@ class SearchView extends Component {
     query: '',
     results: [],
     queryTimeoutId: null,
-    QUERY_TIMEOUT: 1500,
+    QUERY_TIMEOUT: 750,
     loadingResults: false,
   }
 

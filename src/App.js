@@ -21,9 +21,28 @@ class BooksApp extends React.Component {
   }
 
   async componentDidMount() {
+    this.updateData();
+  }
+
+  async componentWillReceiveProps() {
+    if (!this.state.allBooks.length) {
+      this.updateData();
+    }
+  }
+  
+  updateData = async() => {
+    try {
+      const [searchTerms, allBooks] = await this.getData();
+      this.setState({ searchTerms, allBooks });
+    } catch (e) {
+      return;
+    }
+  }
+
+  getData = async() => {
     const searchTerms = await fetchSearchTerms();
     const allBooks = await getAll();
-    this.setState({ allBooks, searchTerms });
+    return [searchTerms, allBooks];
   }
 
   updateBookShelf = (newBook) => {
