@@ -16,7 +16,18 @@ class SearchView extends Component {
   }
 
   search = async(q) => {
+    const { allBooks } = this.props;
     const results = q.length ? await search(q) : [];
+    for (var result of results) {
+      let isMatch;
+      for (var b of allBooks) {
+        isMatch = b.id === result.id;
+        if (isMatch) {
+          result.shelf = b.shelf;
+          break;
+        }
+      }
+    }
     this.setState({
       results,
     });

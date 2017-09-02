@@ -36,14 +36,15 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const { allBooks, searchTerms } = this.state;
     return (
       <div className="app">
         <Route path="/" component={Navbar} />
         <Route exact path="/" render={() => (
-          <BookshelfView allBooks={this.state.allBooks} shelves={this.shelves} onBookReshelved={this.updateBookShelf} />
+          <BookshelfView allBooks={allBooks} shelves={this.shelves} onBookReshelved={this.updateBookShelf} />
         )} />
         <Route path="/search" render={() => (
-          <SearchView searchTerms={this.state.searchTerms} shelves={this.shelves} onBookReshelved={this.updateBookShelf} />
+          <SearchView allBooks={allBooks} searchTerms={searchTerms} shelves={this.shelves} onBookReshelved={this.updateBookShelf} />
         )} />
       </div>
     )

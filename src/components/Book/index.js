@@ -14,12 +14,10 @@ class Book extends Component {
     shelf: '',
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.state.shelf !== nextProps.book.shelf) {
-      this.setState({
-        shelf: nextProps.book.shelf,
-      });
-    }
+  componentDidMount() {
+    this.setState({
+      shelf: this.props.book.shelf,
+    });
   }
 
   updateBook = async(shelf) => {

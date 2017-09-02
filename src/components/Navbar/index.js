@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 
 const Navbar = () => (
-    <AppBar iconElementLeft={<IconButton href="/"><BookmarkBorder /></IconButton>} title={<Link to="/">Bookmarks</Link>} />
+    <AppBar iconElementLeft={<IconButton href="/"><BookmarkBorder /></IconButton>} title={<Link to="/">Bookmark</Link>} />
 );
 
 export default Navbar;
