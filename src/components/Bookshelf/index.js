@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import PropTypes from 'prop-types';
 import Bookshelf from './Bookshelf';
@@ -30,9 +31,11 @@ class BookshelfView extends Component {
           onBookReshelved={this.props.onBookReshelved}
           shelves={this.props.shelves}
         />
-        <SearchButton href="/search">
-          <ContentAdd />
-        </SearchButton>
+        <Link to="/search">
+          <SearchButton>
+            <ContentAdd />
+          </SearchButton>
+        </Link>
       </div>
     );
   }

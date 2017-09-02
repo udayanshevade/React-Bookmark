@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import TextField from 'material-ui/TextField';
+import Searchbar from './searchBar';
 import SearchTermsTray from './searchTermsTray';
 import SearchResults from './searchResults';
 import { search } from '../../BooksAPI';
@@ -13,6 +10,7 @@ class SearchView extends Component {
     results: [],
     queryTimeoutId: null,
     QUERY_TIMEOUT: 1500,
+    loadingResults: false,
   }
 
   search = async(q) => {
@@ -30,6 +28,7 @@ class SearchView extends Component {
     }
     this.setState({
       results,
+      loadingResults: false,
     });
   }
 
@@ -39,6 +38,9 @@ class SearchView extends Component {
     this.setState({
       query: val,
       queryTimeoutId: setTimeout(() => {
+        this.setState({
+          loadingResults: true,
+        });
         this.search(val);
       }, QUERY_TIMEOUT),
     });
@@ -46,29 +48,17 @@ class SearchView extends Component {
 
   render() {
     const { searchTerms = [], shelves, onBookReshelved } = this.props;
-    const { query, results } = this.state;
+    const { query, results, loadingResults } = this.state;
     return (
       <div className="search-books">
-        <Toolbar>
-          <ToolbarGroup>
-            <IconButton href="/"><ArrowBack color="#00bcd4" /></IconButton>
-          </ToolbarGroup>
-          <ToolbarGroup style={{ width: '100%' }}>
-            <TextField
-              hintText="Enter a name or a keyword."
-              id="search-books-input"
-              fullWidth
-              value={query}
-              onChange={this.updateQuery}
-            />
-          </ToolbarGroup>
-        </Toolbar>
+        <Searchbar query={query} updateQuery={this.updateQuery} />
         {
-          results.length
+          loadingResults || results.length
             ? <SearchResults
                 books={results}
                 shelves={shelves}
                 onBookReshelved={onBookReshelved}
+                loadingResults={loadingResults}
               />
             : <SearchTermsTray searchTerms={searchTerms} />
         }
