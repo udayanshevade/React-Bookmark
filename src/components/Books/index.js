@@ -19,9 +19,11 @@ const Books = ({ books, shelves, onBookReshelved }) => {
     </CSSTransition>
   ));
   return (
-    <TransitionGroup appear className="grid">
-      {items}
-    </TransitionGroup>
+    <div className="books-list">
+      <TransitionGroup appear className="grid">
+        {items}
+      </TransitionGroup>
+    </div>
   );
 };
 

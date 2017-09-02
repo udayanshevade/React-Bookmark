@@ -1,6 +1,6 @@
 import React from 'react';
 import Chip from 'material-ui/Chip';
-import { EmptyShelf, EmptyShelfText } from '../Bookshelf/styles';
+import { EmptyShelf, EmptyShelfText } from '../styles';
 import { SearchTermsContainer } from './styles';
 
 const SearchTermsTray = ({ searchTerms }) => (

@@ -43,41 +43,51 @@ class Book extends Component {
     const { imageLinks, title, authors } = book;
     return (
       <Card className="book">
-        <CardMedia>
+        <CardMedia
+          overlay={
+            <RightAlignedActions>
+              <IconMenu
+                iconButtonElement={
+                  <IconButton style={styles.organizeButton}>
+                    <Sort color="#fff" />
+                  </IconButton>}
+                value={shelf}
+                onChange={this.handleShelfSelect}
+                style={{ margin: 0 }}
+              >
+                <MenuItem value={null} disabled>Move to:</MenuItem>
+                {
+                  Object.keys(shelves).map(s => (
+                    <MenuItem
+                      value={s}
+                      selected={shelf === s}
+                      key={`${title}-menu-${s}`}
+                      primaryText={shelves[s]}
+                    />
+                  ))
+                }
+              </IconMenu>
+            </RightAlignedActions>
+          }
+          overlayContentStyle={{ background: 'none' }}
+        >
           <img src={imageLinks.thumbnail || imageLinks.smallThumbnail} alt={`Book cover for ${title}`} />
         </CardMedia>
         <CardTitle
           title={title}
           titleStyle={styles.title}
           subtitle={
-            <ul className="authors-list">
-              {
-                authors.map((author, i) => <li key={`${title}-author-${i}`}>{author}</li>)
-              }
-            </ul>
+            !authors || !authors.length
+              ? null
+              : (
+                <ul className="authors-list">
+                  {
+                    authors.map((author, i) => <li key={`${title}-author-${i}`}>{author}</li>)
+                  }
+                </ul>
+              )
           }
         />
-        <RightAlignedActions>
-          <div>
-            <IconMenu
-              iconButtonElement={<IconButton><Sort /></IconButton>}
-              value={shelf}
-              onChange={this.handleShelfSelect}
-            >
-              <MenuItem value={null} disabled>Move to:</MenuItem>
-              {
-                Object.keys(shelves).map(s => (
-                  <MenuItem
-                    value={s}
-                    selected={shelf === s}
-                    key={`${title}-menu-${s}`}
-                    primaryText={shelves[s]}
-                  />
-                ))
-              }
-            </IconMenu>
-          </div>
-        </RightAlignedActions>
       </Card>
     );
   }
@@ -100,6 +110,14 @@ Book.propTypes = {
 const styles = {
   title: {
     fontSize: '2rem',
+  },
+  organizeButton: {
+    background: '#00bcd4',
+    width: '5rem',
+    height: '5rem',
+    borderRadius: '50%',
+    left: '1.5rem',
+    top: '1.5rem',
   },
 };
 

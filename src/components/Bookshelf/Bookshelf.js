@@ -5,7 +5,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import Books from '../Books';
-import { EmptyShelf, EmptyShelfText } from './styles';
+import { EmptyShelf, EmptyShelfText } from '../styles';
 
 class Bookshelf extends Component {
   state = {

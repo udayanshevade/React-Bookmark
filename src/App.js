@@ -1,20 +1,25 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Bookshelf from './components/Bookshelf';
+import BookshelfView from './components/Bookshelf';
 import SearchView from './components/SearchView';
-import * as BooksAPI from './BooksAPI';
+import { fetchSearchTerms, getAll } from './BooksAPI';
 import findIndex from 'core-js/library/fn/array/find-index';
 import './App.css';
 
 class BooksApp extends React.Component {
+  shelves = {
+    currentlyReading: 'Now Reading',
+    wantToRead: 'Read Later',
+    read: 'Completed',
+  }
+
   state = {
     allBooks: [],
     searchTerms: [],
   }
 
   async componentDidMount() {
-    const { fetchSearchTerms, getAll } = BooksAPI;
     const searchTerms = await fetchSearchTerms();
     const allBooks = await getAll();
     this.setState({ allBooks, searchTerms });
@@ -35,10 +40,10 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route path="/" component={Navbar} />
         <Route exact path="/" render={() => (
-          <Bookshelf allBooks={this.state.allBooks} onBookReshelved={this.updateBookShelf} />
+          <BookshelfView allBooks={this.state.allBooks} shelves={this.shelves} onBookReshelved={this.updateBookShelf} />
         )} />
         <Route path="/search" render={() => (
-          <SearchView searchTerms={this.state.searchTerms} />
+          <SearchView searchTerms={this.state.searchTerms} shelves={this.shelves} onBookReshelved={this.updateBookShelf} />
         )} />
       </div>
     )

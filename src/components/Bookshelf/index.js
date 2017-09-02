@@ -5,16 +5,10 @@ import Bookshelf from './Bookshelf';
 import { SearchButton } from './styles';
 
 class BookshelfView extends Component {
-  shelves = {
-    currentlyReading: 'Now Reading',
-    wantToRead: 'Read Later',
-    read: 'Completed',
-  }
-
   adjustBooksData = (rawData) => {
     // initialize empty arrays for all shelves
     const adjustedData = {};
-    Object.keys(this.shelves).forEach((shelf) => {
+    Object.keys(this.props.shelves).forEach((shelf) => {
       adjustedData[shelf] = [];
     });
     // file each book from the raw data into its appropriate shelf
@@ -34,7 +28,7 @@ class BookshelfView extends Component {
         <Bookshelf
           organizedBooks={organizedBooks}
           onBookReshelved={this.props.onBookReshelved}
-          shelves={this.shelves}
+          shelves={this.props.shelves}
         />
         <SearchButton href="/search">
           <ContentAdd />

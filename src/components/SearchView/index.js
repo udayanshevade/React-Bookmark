@@ -4,11 +4,38 @@ import IconButton from 'material-ui/IconButton';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import TextField from 'material-ui/TextField';
 import SearchTermsTray from './searchTermsTray';
-import { EmptyShelf, EmptyShelfText } from '../Bookshelf/styles';
+import SearchResults from './searchResults';
+import { search } from '../../BooksAPI';
 
 class SearchView extends Component {
-  render() { 
-    const { searchResults = [], searchTerms = [] } = this.props;
+  state = {
+    query: '',
+    results: [],
+    queryTimeoutId: null,
+    QUERY_TIMEOUT: 1500,
+  }
+
+  search = async(q) => {
+    const results = q.length ? await search(q) : [];
+    this.setState({
+      results,
+    });
+  }
+
+  updateQuery = (e, val) => {
+    const { QUERY_TIMEOUT, queryTimeoutId } = this.state;
+    clearTimeout(queryTimeoutId);
+    this.setState({
+      query: val,
+      queryTimeoutId: setTimeout(() => {
+        this.search(val);
+      }, QUERY_TIMEOUT),
+    });
+  }
+
+  render() {
+    const { searchTerms = [], shelves, onBookReshelved } = this.props;
+    const { query, results } = this.state;
     return (
       <div className="search-books">
         <Toolbar>
@@ -20,14 +47,18 @@ class SearchView extends Component {
               hintText="Enter a name or a keyword."
               id="search-books-input"
               fullWidth
+              value={query}
+              onChange={this.updateQuery}
             />
           </ToolbarGroup>
         </Toolbar>
         {
-          searchResults.length
-            ? <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
+          results.length
+            ? <SearchResults
+                books={results}
+                shelves={shelves}
+                onBookReshelved={onBookReshelved}
+              />
             : <SearchTermsTray searchTerms={searchTerms} />
         }
       </div>
