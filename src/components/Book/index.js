@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Card from 'material-ui/Card';
 import CardTop from './cardTop';
-import CardDetails from './details';
+import BookDetails from './details';
 import * as BooksAPI from '../../BooksAPI';
 import PropTypes from 'prop-types';
 
@@ -35,20 +36,22 @@ class Book extends Component {
   render() {
     const { book, shelves } = this.props;
     const { shelf } = this.state;
-    const { imageLinks, title, authors } = book;
+    const { imageLinks, title, authors, id } = book;
     return (
       <Card className="book">
-        <CardTop
-          shelf={shelf}
-          shelves={shelves}
-          title={title}
-          images={imageLinks}
-          onShelfSelect={this.handleShelfSelect}          
-        />
-        <CardDetails
-          title={title}
-          authors={authors}
-        />
+        <Link to={`/books/${id}`}>
+          <CardTop
+            shelf={shelf}
+            shelves={shelves}
+            title={title}
+            images={imageLinks}
+            onShelfSelect={this.handleShelfSelect}          
+          />
+          <BookDetails
+            title={title}
+            authors={authors}
+          />
+        </Link>
       </Card>
     );
   }

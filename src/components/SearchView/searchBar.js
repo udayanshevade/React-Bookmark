@@ -13,7 +13,7 @@ const Searchbar = ({ query, updateQuery }) => (
     </ToolbarGroup>
     <ToolbarGroup style={{ width: '100%' }}>
       <TextField
-        hintText="Enter a name or a keyword."
+        hintText="Enter a search term."
         id="search-books-input"
         fullWidth
         value={query}

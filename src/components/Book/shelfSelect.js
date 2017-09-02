@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import Sort from 'material-ui/svg-icons/content/sort';
+import Reorder from 'material-ui/svg-icons/action/reorder';
 
 const ShelfSelect = ({ shelf, shelves, title, onShelfSelect }) => (
   <IconMenu
     iconButtonElement={
       <IconButton style={styles.organizeButton}>
-        <Sort color="#fff" />
+        <Reorder color="#fff" />
       </IconButton>}
     value={shelf}
     onChange={onShelfSelect}
     style={{ margin: 0 }}
+    selectedMenuItemStyle={{ background: 'rgba(150, 150, 150, 0.3)' }}
   >
     <MenuItem value={null} disabled>Move to:</MenuItem>
     {

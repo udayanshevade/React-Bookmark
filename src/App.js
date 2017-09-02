@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import BookshelfView from './components/Bookshelf';
 import SearchView from './components/SearchView';
+import BookDetailsView from './components/BookDetails';
 import { fetchSearchTerms, getAll } from './BooksAPI';
 import findIndex from 'core-js/library/fn/array/find-index';
 import './App.css';
@@ -46,6 +47,7 @@ class BooksApp extends React.Component {
         <Route path="/search" render={() => (
           <SearchView allBooks={allBooks} searchTerms={searchTerms} shelves={this.shelves} onBookReshelved={this.updateBookShelf} />
         )} />
+        <Route path="/books/:id" component={BookDetailsView} />
       </div>
     )
   }
