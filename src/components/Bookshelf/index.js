@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import PropTypes from 'prop-types';
 import Bookshelf from './Bookshelf';
 import { SearchButton } from './styles';
+import bookProps from '../Book/props';
 
 class BookshelfView extends Component {
   adjustBooksData = (rawData) => {
@@ -17,19 +18,20 @@ class BookshelfView extends Component {
       if (adjustedData.hasOwnProperty(book.shelf)) {
         adjustedData[book.shelf].push(book);
       }
-    })
+    });
+    // adjusted data used for rendering shelves dynamically
     return adjustedData;
   }
 
   render() {
-    if (!this.props.allBooks.length) return <span />;
-    const organizedBooks = this.adjustBooksData(this.props.allBooks);
+    const { allBooks, ...restProps } = this.props;
+    if (!allBooks.length) return <span />;
+    const organizedBooks = this.adjustBooksData(allBooks);
     return (
       <div className="list-books">
         <Bookshelf
           organizedBooks={organizedBooks}
-          onBookReshelved={this.props.onBookReshelved}
-          shelves={this.props.shelves}
+          {...restProps}
         />
         <Link to="/search">
           <SearchButton>
@@ -42,8 +44,9 @@ class BookshelfView extends Component {
 }
 
 BookshelfView.propTypes = {
-  allBooks: PropTypes.array,
+  allBooks: PropTypes.arrayOf(bookProps),
   onBookReshelved: PropTypes.func,
+  openSnackbar: PropTypes.func,
 };
 
 export default BookshelfView;

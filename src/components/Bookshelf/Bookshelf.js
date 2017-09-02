@@ -6,6 +6,7 @@ import SwipeableViews from 'react-swipeable-views';
 import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import Books from '../Books';
 import { EmptyShelf, EmptyShelfText } from '../styles';
+import bookProps from '../Book/props';
 
 class Bookshelf extends Component {
   state = {
@@ -26,7 +27,7 @@ class Bookshelf extends Component {
 
   render() {
     const { slideIndex } = this.state;
-    const { organizedBooks, onBookReshelved, shelves } = this.props;
+    const { organizedBooks, shelves, ...restProps } = this.props;
     return (
       <div className="list-books-content">
         <Tabs
@@ -47,16 +48,19 @@ class Bookshelf extends Component {
         <SwipeableViews
           index={slideIndex}
           onChangeIndex={this.handleSlideChange}
+          animateHeight
         >
           {
             Object.keys(organizedBooks).map(shelf => (
               organizedBooks[shelf].length
-                ? <Books
-                  books={organizedBooks[shelf]}
-                  shelves={shelves}
-                  onBookReshelved={onBookReshelved}
-                  key={`${shelf}Swipeable`}
-                />
+                ? (
+                  <Books
+                    books={organizedBooks[shelf]}
+                    key={`${shelf}Swipeable`}
+                    shelves={shelves}
+                    {...restProps}
+                  />
+                )
                 : (
                   <EmptyShelf key={`${shelf}Swipeable`}>
                     <BookmarkBorder style={styles.emptyIcon}/>
@@ -75,13 +79,10 @@ class Bookshelf extends Component {
 
 Bookshelf.propTypes = {
   organizedBooks: PropTypes.shape({
-    shelf: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-      })
-    ),
+    shelf: PropTypes.arrayOf(bookProps),
   }),
   onBookReshelved: PropTypes.func,
+  openSnackbar: PropTypes.func,
 };
 
 const styles = {

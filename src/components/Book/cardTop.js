@@ -4,11 +4,11 @@ import { CardMedia } from 'material-ui/Card';
 import ShelfSelect from './shelfSelect';
 import { RightAlignedActions } from './styles';
 
-const CardTop = ({ images, title, ...props }) => (
+const CardTop = ({ images, title, ...restProps }) => (
   <CardMedia
     overlay={
       <RightAlignedActions>
-        <ShelfSelect {...props} />
+        <ShelfSelect {...restProps} />
       </RightAlignedActions>
     }
     overlayContentStyle={{ background: 'none' }}
@@ -22,6 +22,10 @@ CardTop.propTypes = {
     thumbnail: PropTypes.string,
   }),
   title: PropTypes.string,
+  onShelfSelect: PropTypes.func,
+  shelves: PropTypes.shape({
+    currentlyReading: PropTypes.string,
+  }),
 };
 
 export default CardTop;
