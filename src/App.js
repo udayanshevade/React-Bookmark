@@ -96,8 +96,11 @@ class BooksApp extends React.Component {
             openSnackbar={this.openSnackbar}
           />
         )} />
-        <Route path="/books/:id" render={() => (
-          <BookDetailsView openSnackbar={this.openSnackbar} />
+        <Route path="/books/:id" render={(routeProps) => (
+          <BookDetailsView
+            match={routeProps.match}
+            openSnackbar={this.openSnackbar}
+          />
         )} />
         <Snackbar
           open={this.state.snackbarOpen}
