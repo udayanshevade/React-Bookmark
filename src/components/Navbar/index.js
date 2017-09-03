@@ -7,13 +7,13 @@ import Book from 'material-ui/svg-icons/action/book';
 const Navbar = () => (
     <AppBar
       iconElementLeft={
-        <Link to="/">
+        <Link to={`${process.env.PUBLIC_URL}/`}>
           <IconButton>
             <Book color="#fff" />
           </IconButton>
         </Link>
       }
-      title={<Link to="/">Bookmark</Link>}
+      title={<Link to={`${process.env.PUBLIC_URL}/`}>Bookmark</Link>}
     />
 );
 

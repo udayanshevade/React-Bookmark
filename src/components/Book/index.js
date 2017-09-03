@@ -52,7 +52,7 @@ class Book extends Component {
     const { imageLinks, title, authors, id } = book;
     return (
       <Card className="book">
-        <Link to={`/books/${id}`}>
+        <Link to={`${process.env.PUBLIC_URL}/books/${id}`}>
           <CardTop
             shelf={shelf}
             shelves={shelves}

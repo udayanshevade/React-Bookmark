@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField';
 const Searchbar = ({ query, updateQuery }) => (
   <Toolbar>
     <ToolbarGroup>
-      <Link to="/"><IconButton><ArrowBack color="#00bcd4" /></IconButton></Link>
+      <Link to={`${process.env.PUBLIC_URL}/`}><IconButton><ArrowBack color="#00bcd4" /></IconButton></Link>
     </ToolbarGroup>
     <ToolbarGroup style={{ width: '100%' }}>
       <TextField

@@ -79,8 +79,8 @@ class BooksApp extends React.Component {
     const { allBooks } = this.state;
     return (
       <div className="app">
-        <Route path="/" component={Navbar} />
-        <Route exact path="/" render={() => (
+        <Route path={`${process.env.PUBLIC_URL}/`} component={Navbar} />
+        <Route exact path={`${process.env.PUBLIC_URL}/`} render={() => (
           <BookshelfView
             allBooks={allBooks}
             shelves={this.shelves}
@@ -88,7 +88,7 @@ class BooksApp extends React.Component {
             openSnackbar={this.openSnackbar}
           />
         )} />
-        <Route path="/search" render={() => (
+        <Route path={`${process.env.PUBLIC_URL}/search`} render={() => (
           <SearchView
             allBooks={allBooks}
             shelves={this.shelves}
@@ -96,7 +96,7 @@ class BooksApp extends React.Component {
             openSnackbar={this.openSnackbar}
           />
         )} />
-        <Route path="/books/:id" render={(routeProps) => (
+        <Route path={`${process.env.PUBLIC_URL}/books/:id`} render={(routeProps) => (
           <BookDetailsView
             match={routeProps.match}
             openSnackbar={this.openSnackbar}

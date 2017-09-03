@@ -33,7 +33,7 @@ class BookshelfView extends Component {
           organizedBooks={organizedBooks}
           {...restProps}
         />
-        <Link to="/search">
+        <Link to={`${process.env.PUBLIC_URL}/search`}>
           <SearchButton>
             <ContentAdd />
           </SearchButton>

@@ -72,7 +72,7 @@ class BookDetailsView extends Component {
     }
     return (
       <div>
-        <Link to="/"><IconButton><Home color="#00bcd4" /></IconButton></Link>
+        <Link to={`${process.env.PUBLIC_URL}/`}><IconButton><Home color="#00bcd4" /></IconButton></Link>
         {content}
       </div>
     );
