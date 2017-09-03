@@ -20,10 +20,10 @@ See specific details for each book.
 
 The app uses an existing backend server pre-built to develop against. The provided file BooksAPI.js contains methods needed to perform necessary operations on the backend:
 
-- [`getAll`](https://github.com/udacity/reactnd-project-myreads-starter/blob/master/README.md#getall)
-- [`update`](https://github.com/udacity/reactnd-project-myreads-starter/blob/master/README.md#update)
-- [`search`](https://github.com/udacity/reactnd-project-myreads-starter/blob/master/README.md#search)
-- [`fetchSearchTerms`](https://github.com/udacity/reactnd-project-myreads-starter/blob/master/README.md#fetchSearchTerms)
+- [`getAll`](https://github.com/udayanshevade/React-Bookmark/blob/master/README.md#getall)
+- [`update`](https://github.com/udayanshevade/React-Bookmark/blob/master/README.md#update)
+- [`search`](https://github.com/udayanshevade/React-Bookmark/blob/master/README.md#search)
+- [`fetchSearchTerms`](https://github.com/udayanshevade/React-Bookmark/blob/master/README.md#fetchSearchTerms)
 
 Method Signature:
 
