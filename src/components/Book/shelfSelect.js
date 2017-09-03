@@ -27,6 +27,7 @@ const ShelfSelect = ({ shelf, shelves, title, onShelfSelect }) => (
         />
       ))
     }
+    <MenuItem value="None" selected={shelf === 'None'} primaryText="None" />
   </IconMenu>
 );
 
