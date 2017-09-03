@@ -12,6 +12,7 @@ const ShelfSelect = ({ shelf, shelves, title, onShelfSelect }) => (
         <Reorder color="#fff" />
       </IconButton>}
     value={shelf}
+    onClick={(e) => { e.preventDefault(); }}
     onChange={onShelfSelect}
     style={styles.iconMenuStyle}
     selectedMenuItemStyle={styles.selectedMenuItem}
