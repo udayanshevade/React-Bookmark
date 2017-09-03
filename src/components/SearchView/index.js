@@ -73,6 +73,10 @@ class SearchView extends Component {
     });
   }
 
+  onSelectSearchTerm = (e) => {
+    this.updateQuery(e, e.target.innerHTML);
+  }
+
   render() {
     const { shelves, onBookReshelved } = this.props;
     const { query, results, loading, searchTerms } = this.state;
@@ -87,7 +91,7 @@ class SearchView extends Component {
                 onBookReshelved={onBookReshelved}
                 loading={loading}
               />
-            : <SearchTermsTray searchTerms={searchTerms} />
+            : <SearchTermsTray searchTerms={searchTerms} onSelectSearchTerm={this.onSelectSearchTerm} />
         }
       </div>
     );

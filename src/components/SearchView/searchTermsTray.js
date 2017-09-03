@@ -4,7 +4,7 @@ import Chip from 'material-ui/Chip';
 import { EmptyShelf, EmptyShelfText } from '../styles';
 import { SearchTermsContainer } from './styles';
 
-const SearchTermsTray = ({ searchTerms }) => (
+const SearchTermsTray = ({ searchTerms, onSelectSearchTerm }) => (
   !searchTerms.length
     ? <span />
     : <EmptyShelf>
@@ -18,6 +18,7 @@ const SearchTermsTray = ({ searchTerms }) => (
               style={{ margin: '0.5rem' }}
               backgroundColor="#00bcd4"
               labelColor="#fff"
+              onClick={onSelectSearchTerm}
             >
               {term}
             </Chip>
@@ -29,6 +30,7 @@ const SearchTermsTray = ({ searchTerms }) => (
 
 SearchTermsTray.propTypes = {
   searchTerms: PropTypes.arrayOf(PropTypes.string),
+  onSelectSearchTerm: PropTypes.func,
 };
 
 export default SearchTermsTray;
