@@ -1,22 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CardTitle } from 'material-ui/Card';
+import Authors from './authors';
 
-const CardDetails = ({ title, authors }) => (
+const CardDetails = (props) => (
   <CardTitle
-    title={title}
+    title={props.title}
     titleStyle={styles.title}
-    subtitle={
-      !authors || !authors.length
-        ? null
-        : (
-          <ul className="authors-list">
-            {
-              authors.map((author, i) => <li key={`${title}-author-${i}`}>{author}</li>)
-            }
-          </ul>
-        )
-    }
+    subtitle={<Authors {...props} />}
   />
 );
 

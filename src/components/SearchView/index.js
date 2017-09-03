@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Searchbar from './searchBar';
 import SearchTermsTray from './searchTermsTray';
 import SearchResults from './searchResults';
-import { search } from '../../BooksAPI';
+import { fetchSearchTerms, search } from '../../BooksAPI';
 
 class SearchView extends Component {
   state = {
     query: '',
+    searchTerms: [],
     results: [],
     queryTimeoutId: null,
     QUERY_TIMEOUT: 750,
-    loadingResults: false,
+    loading: true,
+  }
+
+  async componentDidMount() {
+    if (!this.state.searchTerms.length) {
+      try {
+        const searchTerms = await fetchSearchTerms();
+        this.setState({ searchTerms, loading: false });
+      } catch (e) {
+        this.props.openSnackbar('Search terms could not be located.');
+      }
+    }
   }
 
   search = async(q) => {
@@ -36,7 +49,7 @@ class SearchView extends Component {
     }
     this.setState({
       results,
-      loadingResults: false,
+      loading: false,
     });
   }
 
@@ -51,7 +64,7 @@ class SearchView extends Component {
       queryTimeoutId: setTimeout(() => {
         // activate new timeout for loading results
         this.setState({
-          loadingResults: true,
+          loading: true,
         });
         this.search(val);
       }, QUERY_TIMEOUT),
@@ -59,18 +72,18 @@ class SearchView extends Component {
   }
 
   render() {
-    const { searchTerms = [], shelves, onBookReshelved } = this.props;
-    const { query, results, loadingResults } = this.state;
+    const { shelves, onBookReshelved } = this.props;
+    const { query, results, loading, searchTerms } = this.state;
     return (
       <div className="search-books">
         <Searchbar query={query} updateQuery={this.updateQuery} />
         {
-          loadingResults || results.length
+          loading || results.length
             ? <SearchResults
                 books={results}
                 shelves={shelves}
                 onBookReshelved={onBookReshelved}
-                loadingResults={loadingResults}
+                loading={loading}
               />
             : <SearchTermsTray searchTerms={searchTerms} />
         }
@@ -78,5 +91,10 @@ class SearchView extends Component {
     );
   }
 }
+
+SearchView.propTypes = {
+  shelves: PropTypes.shape({ currentlyReading: PropTypes.string }),
+  onBookReshelved: PropTypes.func,
+};
 
 export default SearchView;

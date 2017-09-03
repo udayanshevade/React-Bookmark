@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import BookshelfView from './components/Bookshelf';
 import SearchView from './components/SearchView';
 import BookDetailsView from './components/BookDetails';
-import { fetchSearchTerms, getAll } from './BooksAPI';
+import { getAll } from './BooksAPI';
 import findIndex from 'core-js/library/fn/array/find-index';
 import './App.css';
 
@@ -19,7 +19,6 @@ class BooksApp extends React.Component {
 
   state = {
     allBooks: [],
-    searchTerms: [],
     snackbarOpen: false,
     snackbarMessage: '',
   }
@@ -37,17 +36,16 @@ class BooksApp extends React.Component {
   
   updateData = async() => {
     try {
-      const [searchTerms, allBooks] = await this.getData();
-      this.setState({ searchTerms, allBooks });
+      const allBooks = await this.getData();
+      this.setState({ allBooks });
     } catch (e) {
       this.openSnackbar('Bookshelf did not load. Refresh app or return later.')
     }
   }
 
   getData = async() => {
-    const searchTerms = await fetchSearchTerms();
     const allBooks = await getAll();
-    return [searchTerms, allBooks];
+    return allBooks;
   }
 
   updateBookShelf = (newBook) => {
@@ -78,7 +76,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { allBooks, searchTerms } = this.state;
+    const { allBooks } = this.state;
     return (
       <div className="app">
         <Route path="/" component={Navbar} />
@@ -93,13 +91,14 @@ class BooksApp extends React.Component {
         <Route path="/search" render={() => (
           <SearchView
             allBooks={allBooks}
-            searchTerms={searchTerms}
             shelves={this.shelves}
             onBookReshelved={this.updateBookShelf}
             openSnackbar={this.openSnackbar}
           />
         )} />
-        <Route path="/books/:id" component={BookDetailsView} />
+        <Route path="/books/:id" render={() => (
+          <BookDetailsView openSnackbar={this.openSnackbar} />
+        )} />
         <Snackbar
           open={this.state.snackbarOpen}
           message={this.state.snackbarMessage}

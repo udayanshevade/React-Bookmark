@@ -5,6 +5,7 @@ import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Home from 'material-ui/svg-icons/action/home';
+import Authors from '../Book/authors';
 import { get } from '../../BooksAPI';
 import { EmptyShelf, EmptyShelfText, Loading } from '../styles';
 
@@ -15,11 +16,13 @@ class BookDetailsView extends Component {
   }
 
   async componentDidMount() {
-    const data = await get(this.props.match.params.id);
-    this.setState({
-      data,
-      loading: false,
-    });
+    try {
+      const data = await get(this.props.match.params.id);
+      this.setState({ data, loading: false });
+    } catch (e) {
+      this.setState({ loading: false });
+      this.props.openSnackbar('Book data could not be fetched.')
+    }
   }
 
   render() {
@@ -27,16 +30,17 @@ class BookDetailsView extends Component {
     let content;
     if (loading && !data) {
       content = <EmptyShelf><Loading /></EmptyShelf>;
-    } else if (!this.state.data) {
+    } else if (!data) {
       content = (
         <EmptyShelf>
           <EmptyShelfText>Details about this book are unavailable at this time.</EmptyShelfText>
-          <EmptyShelfText spaced>Try again later.</EmptyShelfText>
+          <EmptyShelfText spaced>Please try again later.</EmptyShelfText>
         </EmptyShelf>
       );
     }
     else {
       const { title, subtitle, authors, description, infoLink, previewLink, imageLinks } = data;
+      const imgSrc = imageLinks ? imageLinks.thumbnail || imageLinks.smallThumbnail : null;
       content = (
         <Card>
           <CardHeader
@@ -44,23 +48,18 @@ class BookDetailsView extends Component {
             subtitle={subtitle || null}
           />
           {
-            (imageLinks && (imageLinks.thumbnail || imageLinks.smallThumbnail))
+            imgSrc
               && <img
-                src={imageLinks.thumbnail || imageLinks.smallThumbnail}
+                src={imgSrc}
                 alt={`Cover preview for a book titled: ${title}`}
                 style={{ padding: '1.6rem' }}
               />
           }
           {
-            (authors && authors.length)
-              && <CardText>
-                  <span>Authors:</span>
-                  <ul className="authors-list">
-                    {
-                      authors.map((author, i) => <li key={`${title}-author-${i}`}>{author}</li>)
-                    }
-                  </ul>
-                </CardText>
+            <CardText>
+              <span>Authors:</span>
+              <Authors authors={authors} title={title} />
+            </CardText>
           }
           {
             description && <CardText>{description}</CardText>
@@ -84,6 +83,7 @@ BookDetailsView.propTypes = {
   match: PropTypes.shape({
     id: PropTypes.string,
   }),
+  openSnackbar: PropTypes.func,
 };
 
 export default BookDetailsView;

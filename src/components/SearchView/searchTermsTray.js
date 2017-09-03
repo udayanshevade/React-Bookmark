@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Chip from 'material-ui/Chip';
 import { EmptyShelf, EmptyShelfText } from '../styles';
 import { SearchTermsContainer } from './styles';
@@ -25,5 +26,9 @@ const SearchTermsTray = ({ searchTerms }) => (
       </SearchTermsContainer>
     </EmptyShelf>
 );
+
+SearchTermsTray.propTypes = {
+  searchTerms: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default SearchTermsTray;

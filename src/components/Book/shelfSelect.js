@@ -13,8 +13,8 @@ const ShelfSelect = ({ shelf, shelves, title, onShelfSelect }) => (
       </IconButton>}
     value={shelf}
     onChange={onShelfSelect}
-    style={{ margin: 0 }}
-    selectedMenuItemStyle={{ background: 'rgba(150, 150, 150, 0.3)' }}
+    style={styles.iconMenuStyle}
+    selectedMenuItemStyle={styles.selectedMenuItem}
   >
     <MenuItem value={null} disabled>Move to:</MenuItem>
     {
@@ -45,9 +45,11 @@ const styles = {
     width: '4.8rem',
     height: '4.8rem',
     borderRadius: '50%',
-    left: '1.5rem',
+    left: '2rem',
     top: '1.5rem',
   },
+  iconMenuStyle: { margin: 0 },
+  selectedMenuItem: { background: 'rgba(150, 150, 150, 0.3)' }
 };
 
 export default ShelfSelect;
