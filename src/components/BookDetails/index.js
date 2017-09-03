@@ -33,8 +33,8 @@ class BookDetailsView extends Component {
     } else if (!data) {
       content = (
         <EmptyShelf>
-          <EmptyShelfText>Details about this book are unavailable at this time.</EmptyShelfText>
-          <EmptyShelfText spaced>Please try again later.</EmptyShelfText>
+          <EmptyShelfText lighten>Details for this book are not available right now.</EmptyShelfText>
+          <EmptyShelfText lighten spaced>Check your connection, refresh the app, or try again later.</EmptyShelfText>
         </EmptyShelf>
       );
     }

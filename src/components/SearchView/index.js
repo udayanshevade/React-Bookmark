@@ -17,12 +17,14 @@ class SearchView extends Component {
 
   async componentDidMount() {
     if (!this.state.searchTerms.length) {
+      let newState = { loading: false };
       try {
         const searchTerms = await fetchSearchTerms();
-        this.setState({ searchTerms, loading: false });
+        newState.searchTerms = searchTerms;
       } catch (e) {
         this.props.openSnackbar('Search terms could not be located.');
       }
+      this.setState(newState);
     }
   }
 
