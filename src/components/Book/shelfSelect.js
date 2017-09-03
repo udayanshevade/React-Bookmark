@@ -16,7 +16,7 @@ const ShelfSelect = ({ shelf, shelves, title, onShelfSelect }) => (
     style={styles.iconMenuStyle}
     selectedMenuItemStyle={styles.selectedMenuItem}
   >
-    <MenuItem value={null} disabled>Move to:</MenuItem>
+    <MenuItem value={null} disabled>Move to...</MenuItem>
     {
       Object.keys(shelves).map(s => (
         <MenuItem
