@@ -12,6 +12,7 @@ const CardTop = ({ images, title, ...restProps }) => (
       </RightAlignedActions>
     }
     overlayContentStyle={{ background: 'none' }}
+    style={{ boxShadow: 'rgba(0, 0, 0, 0.24) 0px 1px 6px, rgba(0, 0, 0, 0.24) 0px 1px 4px' }}
   >
     <img src={images.thumbnail || images.smallThumbnail} alt={`Book cover for ${title}`} />
   </CardMedia>

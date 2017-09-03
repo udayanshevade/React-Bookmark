@@ -27,6 +27,7 @@ a {
 .book {
   width: 150px;
   margin: 1rem;
+  box-shadow: none !important;
 }
 
 @media screen and (min-width: 600px) {
