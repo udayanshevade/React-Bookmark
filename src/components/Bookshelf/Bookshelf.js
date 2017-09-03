@@ -11,6 +11,7 @@ import bookProps from '../Book/props';
 class Bookshelf extends Component {
   state = {
     slideIndex: 0,
+    animated: false,
   }
 
   emptyShelfText = {
@@ -20,13 +21,14 @@ class Bookshelf extends Component {
   }
 
   handleSlideChange = (val) => {
-    this.setState({
-      slideIndex: val,
-    });
+    const newState = {};
+    if (!this.state.animated) newState.animated = true;
+    newState.slideIndex = val;
+    this.setState(newState);
   }
 
   render() {
-    const { slideIndex } = this.state;
+    const { slideIndex, animated } = this.state;
     const { organizedBooks, shelves, ...restProps } = this.props;
     return (
       <div className="list-books-content">
@@ -48,7 +50,7 @@ class Bookshelf extends Component {
         <SwipeableViews
           index={slideIndex}
           onChangeIndex={this.handleSlideChange}
-          animateHeight
+          animateHeight={animated}
         >
           {
             Object.keys(organizedBooks).map(shelf => (
