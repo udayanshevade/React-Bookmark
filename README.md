@@ -33,6 +33,7 @@ Method Signature:
 - This collection represents the books currently in the bookshelves in your app.
 update
 
+
 Method Signature:
 
 ### `update(book, shelf)`
@@ -40,6 +41,7 @@ Method Signature:
 - book: <Object> containing at minimum an id attribute
 - shelf: <String> contains one of ["wantToRead", "currentlyReading", "read"]
 - Returns a Promise which resolves to a JSON object containing the response data of the POST request search
+
 
 Method Signature:
 
@@ -50,12 +52,14 @@ Method Signature:
 - Returns a Promise which resolves to a JSON object containing a collection of book objects.
 - These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
+
 Method Signature:
 
 ### `fetchSearchTerms()`
 
 - Returns a list of backend-supported search terms.
 - These are displayed to the user to guide proper search queries.
+
 
 #### Important
 
