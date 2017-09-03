@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import Home from 'material-ui/svg-icons/action/home';
 import { get } from '../../BooksAPI';
 import { EmptyShelf, EmptyShelfText, Loading } from '../styles';
 
@@ -73,7 +73,7 @@ class BookDetailsView extends Component {
     }
     return (
       <div>
-        <Link to="/"><IconButton><ArrowBack color="#00bcd4" /></IconButton></Link>
+        <Link to="/"><IconButton><Home color="#00bcd4" /></IconButton></Link>
         {content}
       </div>
     );

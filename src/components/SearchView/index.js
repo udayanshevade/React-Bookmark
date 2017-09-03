@@ -15,17 +15,24 @@ class SearchView extends Component {
 
   search = async(q) => {
     const { allBooks } = this.props;
-    let results = q.length ? await search(q) : [];
-    if (results.error) results = [];
-    for (var result of results) {
-      let isMatch;
-      for (var b of allBooks) {
-        isMatch = b.id === result.id;
-        if (isMatch) {
-          result.shelf = b.shelf;
-          break;
+    let results;
+    try {
+      results = q.length ? await search(q) : [];
+      // default empty data if there was an error with the request
+      if (results.error) results = [];
+      for (var result of results) {
+        let isMatch;
+        for (var b of allBooks) {
+          isMatch = b.id === result.id;
+          if (isMatch) {
+            // include shelf value for any saved book
+            result.shelf = b.shelf;
+            break;
+          }
         }
       }
+    } catch (e) {
+      results = [];
     }
     this.setState({
       results,
@@ -34,11 +41,15 @@ class SearchView extends Component {
   }
 
   updateQuery = (e, val) => {
+    // performs query on a delay to prevent overloading requests
+    // gives user time to finish typing
     const { QUERY_TIMEOUT, queryTimeoutId } = this.state;
+    // cancel existing query timeout
     clearTimeout(queryTimeoutId);
     this.setState({
       query: val,
       queryTimeoutId: setTimeout(() => {
+        // activate new timeout for loading results
         this.setState({
           loadingResults: true,
         });

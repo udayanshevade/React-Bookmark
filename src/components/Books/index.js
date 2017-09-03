@@ -2,6 +2,7 @@ import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Book from '../Book';
+import bookProps from '../Book/props';
 
 const Books = ({ books, ...restProps }) => {
   const items = books.map((book, i) => (
@@ -27,8 +28,10 @@ const Books = ({ books, ...restProps }) => {
 };
 
 Books.propTypes = {
-  books: PropTypes.array,
-  shelves: PropTypes.object,
+  books: PropTypes.arrayOf(bookProps),
+  shelves: PropTypes.shape({
+    currentlyReading: PropTypes.string,
+  }),
   onBookReshelved: PropTypes.func,
   openSnackbar: PropTypes.func,
 };

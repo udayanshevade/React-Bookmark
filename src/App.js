@@ -40,7 +40,7 @@ class BooksApp extends React.Component {
       const [searchTerms, allBooks] = await this.getData();
       this.setState({ searchTerms, allBooks });
     } catch (e) {
-      return;
+      this.openSnackbar('Bookshelf did not load. Refresh app or return later.')
     }
   }
 
@@ -73,7 +73,7 @@ class BooksApp extends React.Component {
   closeSnackbar = () => {
     this.setState({
       snackbarOpen: false,
-      snackbarMessage: null,
+      snackbarMessage: '',
     });
   }
 

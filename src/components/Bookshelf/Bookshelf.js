@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
-import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
+import Book from 'material-ui/svg-icons/action/book';
 import Books from '../Books';
 import { EmptyShelf, EmptyShelfText } from '../styles';
 import bookProps from '../Book/props';
@@ -63,7 +63,7 @@ class Bookshelf extends Component {
                 )
                 : (
                   <EmptyShelf key={`${shelf}Swipeable`}>
-                    <BookmarkBorder style={styles.emptyIcon}/>
+                    <Book style={styles.emptyIcon}/>
                     <EmptyShelfText spaced>{this.emptyShelfText[shelf]}</EmptyShelfText>
                     <EmptyShelfText spaced>Organize your bookshelf.</EmptyShelfText>
                     <EmptyShelfText><Link to="/search">Or browse new books</Link>.</EmptyShelfText>
